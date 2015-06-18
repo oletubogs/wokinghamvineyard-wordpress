@@ -67,7 +67,9 @@ function mergeTeamMembersByPhoto($members) {
   foreach ($team as $member) {
     // Add photo to $members
     $pastoral_couple_photo = get_field( 'pastoral_couple_photo', $member['person']->ID );
-    $team[$i]['pastoral_couple_photo'] = $pastoral_couple_photo['sizes']['landscape'];
+    if ( !empty ($pastoral_couple_photo) ) {
+      $team[$i]['pastoral_couple_photo'] = $pastoral_couple_photo['sizes']['landscape'];
+    }
 
 
     // Match other members by photo
