@@ -97,6 +97,16 @@ $permalink = get_the_permalink();
 
 
 
+              // Button
+              if (!empty( $block['show_button'] ) && !empty( $block['button_link'] ) && !empty( $block['button_text'] ) ) {
+                $btnColourClass = ( in_array( $block['background_colour'], array('dark', 'grey', 'light') ) ) ? 'btn--primary' : 'btn--secondary';
+              ?>
+                <p><a class="btn <?php echo $btnColourClass; ?>" href="<?php echo $block['button_link']; ?>"><?php echo $block['button_text']; ?></a></p>
+              <?php }
+
+
+
+
 
               // Teams
               if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'teams' && $block['dynamic_content'] !== 'none' ) {
@@ -150,7 +160,7 @@ $permalink = get_the_permalink();
 
 
               // Connect Groups
-              if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'connect-groups' && $block['dynamic_content'] !== 'none' ) {
+              else if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'connect-groups' && $block['dynamic_content'] !== 'none' ) {
                 $args = array (
                   'post_type'       => 'connect-group',
                   'orderby'         => 'title',
@@ -169,18 +179,6 @@ $permalink = get_the_permalink();
                   <?php } else if ( !empty($block['dynamic_content__title']) ) { ?>
                     <h2 class="h2"><?php echo $block['dynamic_content__title']; echo ( !empty ( $args['title_starting_letter'] ) ) ? ': ' . $args['title_starting_letter'] : null;?></h2>
                   <?php } ?>
-
-<!--                   <div class="letter-search">
-                    <button class="btn btn--grey btn--small btn--letter js-open-letter-search">Search by letter</button>
-                    <div class="letter-search__letters">
-                    <?php
-                    $alphabet = range('A', 'Z');
-                    foreach ($alphabet as $letter) { ?>
-                      <a class="btn btn--grey btn--small btn--letter" href="?title_starting_letter=<?=$letter;?>"><?=$letter;?></a>
-                    <?php } ?>
-                      <a class="btn btn--grey btn--small btn--letter" href="/wordpress/get-connected/connect-groups/">Reset</a>
-                    </div>
-                  </div> -->
 
                   <div class="content-block content-block--no-padding">
                   <div class="grid grid--gutterless"><?php
@@ -229,10 +227,31 @@ $permalink = get_the_permalink();
 
 
 
+
+              // Photos
+              else if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'photos' && $block['dynamic_content'] !== 'none' ) {
+
+                if (!empty( $block['photos'] )) {
+
+                  $tabletGridWidth = ( $block[ 'tablet-width' ] == 'one-whole' ) ? 'tablet-one-third' : null;
+                  $i = 1;
+
+                  ?><div class="grid"><?php
+                    foreach ($block['photos'] as $photo) {
+                      $photoUrl = $photo['photo']['sizes']['landscape'];
+                      ?><div class="grid__item mobile-one-half <?php echo $tabletGridWidth; ?>"><img <?=(empty( $tabletGridWidth ) && $i > 2 || $tabletGridWidth == 'tablet-one-third' && $i > 3) ? 'class="gallery__image--not-row-one"' : ''; ?> src="<?php echo $photoUrl; ?>"></div><?php
+                      $i++;
+                     }
+                   ?></div><?php
+                 }
+
+              }
+
+
+
+
               // Team Headshots
               else if ( !empty($block['dynamic_content']) && !empty($block['team_headshots']) && $block['dynamic_content'] !== 'none' ) {
-              ?>
-                <?php
                 $teamMembers = get_field( 'team_members', $block['team_headshots'] );
                 $mergeTeamsByPhoto = false;
 
@@ -304,9 +323,7 @@ $permalink = get_the_permalink();
                   ?></div></div><?php
 
                 wp_reset_postdata();
-
-                ?>
-              <?php } ?>
+              } ?>
             </div>
 
             <?php if ( $contentBlockCount > 1) {
@@ -393,7 +410,7 @@ $permalink = get_the_permalink();
     } else if ( $row['acf_fc_layout'] == 'pastoral_welcome' ) { ?>
       <section class="section--light section--welcome">
         <div class="centering">
-          <div class="team-welcome"><div class="grid grid--gutterless"><div class="grid__item tablet-one-half"><div class="team-welcome__photo">Photo of Debbie and Nino Moscardini</div></div><div class="grid__item tablet-one-half"><div class="team-welcome__message"><p>For over 20 years we’ve been proud to lead such an outstanding team here at Wokingham Vineyard.</p><p>Under their guidance, our church has flourished time and time again.</p><div class="team-welcome__signature">Debbie &amp; Nino Moscardini</div><div class="team-member__position">Pastors</div></div></div></div></div>
+          <div class="team-welcome"><div class="grid grid--gutterless"><div class="grid__item tablet-one-half"><div class="team-welcome__photo">Photo of Nino and Debbie Moscardini</div></div><div class="grid__item tablet-one-half"><div class="team-welcome__message"><p>Welcome to Wokingham Vineyard!</p><p>We are people who are getting to know Jesus better and aim to bring love, compassion, forgiveness and acceptance to our church and community.</p><div class="team-welcome__signature">Nino &amp; Debbie Moscardini</div><div class="team-member__position">Senior Pastors</div></div></div></div></div>
         </div>
       </section>
 
