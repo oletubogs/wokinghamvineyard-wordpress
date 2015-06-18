@@ -1,1 +1,3 @@
 wp-config.php
+*.sublime-project
+*.sublime-workspace
