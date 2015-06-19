@@ -100,8 +100,9 @@ $permalink = get_the_permalink();
               // Button
               if (!empty( $block['show_button'] ) && !empty( $block['button_link'] ) && !empty( $block['button_text'] ) ) {
                 $btnColourClass = ( in_array( $block['background_colour'], array('dark', 'grey', 'light') ) ) ? 'btn--primary' : 'btn--secondary';
+                $btnSizeClass = ( $block['button_size'] == 'small' ) ? 'btn--small' : null;
               ?>
-                <p><a class="btn <?php echo $btnColourClass; ?>" href="<?php echo $block['button_link']; ?>"><?php echo $block['button_text']; ?></a></p>
+                <p><a class="btn <?php echo $btnColourClass . ' ' . $btnSizeClass; ?>" href="<?php echo $block['button_link']; ?>"><?php echo $block['button_text']; ?></a></p>
               <?php }
 
 
@@ -233,16 +234,16 @@ $permalink = get_the_permalink();
 
                 if (!empty( $block['photos'] )) {
 
-                  $tabletGridWidth = ( $block[ 'tablet-width' ] == 'one-whole' ) ? 'tablet-one-third' : null;
                   $i = 1;
 
-                  ?><div class="grid"><?php
+                  ?><div class="gallery"><div class="grid grid--gutterless"><?php
                     foreach ($block['photos'] as $photo) {
-                      $photoUrl = $photo['photo']['sizes']['landscape'];
-                      ?><div class="grid__item mobile-one-half <?php echo $tabletGridWidth; ?>"><img <?=(empty( $tabletGridWidth ) && $i > 2 || $tabletGridWidth == 'tablet-one-third' && $i > 3) ? 'class="gallery__image--not-row-one"' : ''; ?> src="<?php echo $photoUrl; ?>"></div><?php
+                      $photoUrl = $photo['sizes']['landscape'];
+                      $photoUrlFull = $photo['sizes']['large'];
+                      ?><div class="grid__item tablet-one-third"><a class="gallery__image" href="<?php echo $photoUrlFull; ?>" data-lightbox="gallery"><img src="<?php echo $photoUrl; ?>"></a></div><?php
                       $i++;
                      }
-                   ?></div><?php
+                   ?></div></div><?php
                  }
 
               }
@@ -252,78 +253,84 @@ $permalink = get_the_permalink();
 
               // Team Headshots
               else if ( !empty($block['dynamic_content']) && !empty($block['team_headshots']) && $block['dynamic_content'] !== 'none' ) {
-                $teamMembers = get_field( 'team_members', $block['team_headshots'] );
-                $mergeTeamsByPhoto = false;
 
-                if ( strtolower(get_the_title($block['team_headshots'])) == 'pastoral' ) {
-                  $mergeTeamsByPhoto = true;
-                  $teamMembers = mergeTeamMembersByPhoto($teamMembers);
+                foreach ($block['team_headshots'] as $team) {
+
+                  $teamMembers = get_field( 'team_members', $team['team_id'] );
+                  $mergeTeamsByPhoto = false;
+
+                  if ( strtolower( get_the_title( $team['team_id'] ) ) == 'pastoral' ) {
+                    $mergeTeamsByPhoto = true;
+                    $teamMembers = mergeTeamMembersByPhoto( $teamMembers );
+                  }
+
+                  if ( !empty($team['team_title']) ) { ?>
+                    <h2 class="h2"><?php echo $team['team_title']; ?></h2>
+                  <?php } ?>
+
+                  <div class="team">
+
+                    <div class="grid grid--gutterless"><?php
+
+                      foreach ( $teamMembers as $member ) {
+                        $post = $member['person'];
+
+                        $headshotSize = $team['team_headshot_size'];
+                        $teamMemberSmallClass = ($headshotSize == 'square' ) ? 'team-member--square' : null;
+
+                        $teamMemberGridWidths = array('one-half' );
+
+                        if ( $headshotSize == 'square' ) {
+                          $teamMemberGridWidths[] = 'mobile-one-third';
+                        }
+
+                        if ( $block['tablet-width'] == 'one-whole' ) {
+                          $teamMemberGridWidths[] = 'tablet-one-quarter';
+                        }
+
+                        if ( $block['desktop-width'] == 'auto' ) {
+                          $teamMemberGridWidths[] = 'desktop-auto';
+                        }
+                        else if ( $block['desktop-width'] == 'one-whole' && $headshotSize == 'square' ) {
+                          $teamMemberGridWidths[] = 'desktop-one-fifth';
+                        }
+                        else {
+                          $teamMemberGridWidths[] = 'tablet-one-half';
+                        }
+
+                        ?><div class="grid__item <?php echo implode(' ', $teamMemberGridWidths); ?>">
+                          <article class="team-member <?php echo $teamMemberSmallClass; ?>">
+                            <div class="team-member__photo">
+                              <?php
+
+                              $thumbnailSize = ($headshotSize == 'square' ) ? array(400, 400) : 'landscape';
+
+                              if (!empty( $member['person']->merged_photo )) {
+                                $teamThumbnailUrl = $member['person']->merged_photo;
+                              } else {
+                                $teamThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), $thumbnailSize );
+                                $teamThumbnailUrl = $teamThumbnail[0];
+                              }
+                              if (empty($teamThumbnailUrl) ) {
+                                $teamThumbnailUrl = ($headshotSize == 'square' ) ? '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg' : '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                              }
+                              ?>
+                              <img src="<?php echo $teamThumbnailUrl; ?>">
+                            </div>
+                            <div class="team-member__details">
+                              <div class="team-member__name"><?php
+                                echo (!empty( $member['person']->merged_name )) ? $member['person']->merged_name : get_field( 'first_name' ).' '.get_field( 'family_name' ); ?></div>
+                              <div class="team-member__position"><?php echo (!empty( $member['person']->role )) ? $member['person']->role : $member['role']; ?></div>
+                            </div>
+                          </article>
+                        </div><?php }
+                    ?></div></div><?php
+
+                  wp_reset_postdata();
                 }
-
-                if ( !empty($block['dynamic_content__title']) ) { ?>
-                  <h2 class="h2"><?php echo $block['dynamic_content__title']; ?></h2>
-                <?php } ?>
-
-                <div class="team">
-
-                  <div class="grid grid--gutterless"><?php
-
-                    foreach ( $teamMembers as $member ) {
-                      $post = $member['person'];
-
-                      $headshotSize = $block['team_headshot_size'];
-                      $teamMemberSmallClass = ($headshotSize == 'square' ) ? 'team-member--square' : null;
-
-                      $teamMemberGridWidths = array('one-half' );
-
-                      if ( $headshotSize == 'square' ) {
-                        $teamMemberGridWidths[] = 'mobile-one-third';
-                      }
-
-                      if ( $block['tablet-width'] == 'one-whole' ) {
-                        $teamMemberGridWidths[] = 'tablet-one-quarter';
-                      }
-
-                      if ( $block['desktop-width'] == 'auto' ) {
-                        $teamMemberGridWidths[] = 'desktop-auto';
-                      }
-                      else if ( $block['desktop-width'] == 'one-whole' && $headshotSize == 'square' ) {
-                        $teamMemberGridWidths[] = 'desktop-one-fifth';
-                      }
-                      else {
-                        $teamMemberGridWidths[] = 'tablet-one-half';
-                      }
-
-                      ?><div class="grid__item <?php echo implode(' ', $teamMemberGridWidths); ?>">
-                        <article class="team-member <?php echo $teamMemberSmallClass; ?>">
-                          <div class="team-member__photo">
-                            <?php
-
-                            $thumbnailSize = ($headshotSize == 'square' ) ? array(400, 400) : 'landscape';
-
-                            if (!empty( $member['person']->merged_photo )) {
-                              $teamThumbnailUrl = $member['person']->merged_photo;
-                            } else {
-                              $teamThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), $thumbnailSize );
-                              $teamThumbnailUrl = $teamThumbnail[0];
-                            }
-                            if (empty($teamThumbnailUrl) ) {
-                              $teamThumbnailUrl = ($headshotSize == 'square' ) ? '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg' : '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
-                            }
-                            ?>
-                            <img src="<?php echo $teamThumbnailUrl; ?>">
-                          </div>
-                          <div class="team-member__details">
-                            <div class="team-member__name"><?php
-                              echo (!empty( $member['person']->merged_name )) ? $member['person']->merged_name : get_field( 'first_name' ).' '.get_field( 'family_name' ); ?></div>
-                            <div class="team-member__position"><?php echo (!empty( $member['person']->role )) ? $member['person']->role : $member['role']; ?></div>
-                          </div>
-                        </article>
-                      </div><?php }
-                  ?></div></div><?php
-
-                wp_reset_postdata();
               } ?>
+
+
             </div>
 
             <?php if ( $contentBlockCount > 1) {
