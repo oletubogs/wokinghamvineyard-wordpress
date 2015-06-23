@@ -140,7 +140,7 @@ $permalink = get_the_permalink();
                         $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
                         $thumbnailUrl = $thumbnail[0];
                         if (empty($thumbnailUrl) ) {
-                          $thumbnailUrl = '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                          $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
                         }
                         ?>
                         <img src="<?php echo $thumbnailUrl; ?>">
@@ -196,7 +196,7 @@ $permalink = get_the_permalink();
                         $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
                         $thumbnailUrl = $thumbnail[0];
                         if (empty($thumbnailUrl) ) {
-                          $thumbnailUrl = '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                          $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
                         }
                         ?>
                         <img src="<?php echo $thumbnailUrl; ?>">
@@ -312,7 +312,7 @@ $permalink = get_the_permalink();
                                 $teamThumbnailUrl = $teamThumbnail[0];
                               }
                               if (empty($teamThumbnailUrl) ) {
-                                $teamThumbnailUrl = ($headshotSize == 'square' ) ? '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg' : '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                                $teamThumbnailUrl = ($headshotSize == 'square' ) ? '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg' : '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
                               }
                               ?>
                               <img src="<?php echo $teamThumbnailUrl; ?>">
@@ -392,7 +392,7 @@ $permalink = get_the_permalink();
                     $teamThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
                     $teamThumbnailUrl = $teamThumbnail[0];
                     if (empty($teamThumbnailUrl) ) {
-                      $teamThumbnailUrl = '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                      $teamThumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
                     }
                     ?>
                     <img src="<?php echo $teamThumbnailUrl; ?>">

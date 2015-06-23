@@ -13,7 +13,7 @@
 
 get_header(); ?>
 
-<main role="main" class="main-content">
+<main role="main" class="main-content main-content--plain">
   <div class="centering">
 
 		<?php

@@ -102,7 +102,7 @@ function set_column_content__people( $column, $post_id ) {
     // Person's photo
     case 'person-thumbnail' :
       $teamThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'thumbnail' );
-      $thumbnailUrl = ( !empty( $teamThumbnail[0] ) ) ? $teamThumbnail[0] : '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg';
+      $thumbnailUrl = ( !empty( $teamThumbnail[0] ) ) ? $teamThumbnail[0] : '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg';
       echo '<img src="' . $thumbnailUrl . '" style="max-width:100%;height:auto;">';
       break;
 

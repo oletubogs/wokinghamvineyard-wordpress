@@ -33,12 +33,14 @@ foreach ($customFields as $field) {
 $q1 = new WP_Query(array(
   'post_type'      => array('page', 'connect-group'),
   's' => $queryString,
+  'post_status'    => 'publish',
   'posts_per_page' => -1,
 ));
 
 $q2 = new WP_Query(array(
   'post_type'      => array('page'),
   'meta_query'     => $customFieldsMetaQuery,
+  'post_status'    => 'publish',
   'posts_per_page' => -1,
 ));
 

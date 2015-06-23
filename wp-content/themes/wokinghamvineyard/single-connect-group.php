@@ -23,12 +23,12 @@ the_post();
       <?php the_title( '<h1 class="h1">', '</h1>' ); ?>
 
       <div class="grid"><div class="grid__item tablet-one-half desktop-two-fifths">
-        <a href="/wordpress/get-connected/connect-groups/" class="btn btn--primary btn--small btn--block">&larr; View all Groups</a>
+        <a href="/get-connected/connect-groups/" class="btn btn--primary btn--small btn--block">&larr; View all Groups</a>
         <?php
         $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
         $thumbnailUrl = $thumbnail[0];
         if (empty($thumbnailUrl) ) {
-          $thumbnailUrl = '/wordpress/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+          $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
         }
         ?>
         <img src="<?php echo $thumbnailUrl; ?>">
