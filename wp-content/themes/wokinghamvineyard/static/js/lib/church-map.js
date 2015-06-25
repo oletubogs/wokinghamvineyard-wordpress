@@ -34,7 +34,7 @@ module.exports = function (app) {
         { position: wokinghamVineyard
         , map: churchMap
         , title: 'Wokingham Vineyard'
-        , icon: '/static/images/content/map-marker.png'
+        , icon: '/wp-content/themes/wokinghamvineyard/static/images/content/map-marker.png'
         , animation: google.maps.Animation.DROP
         }
       )

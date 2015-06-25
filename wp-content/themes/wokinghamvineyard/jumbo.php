@@ -111,15 +111,8 @@ $permalink = get_the_permalink();
 
               // Teams
               if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'teams' && $block['dynamic_content'] !== 'none' ) {
-                $args = array (
-                  'post_type'       => 'teams',
-                  'orderby'         => 'title',
-                  'order'           => 'ASC',
-                  'posts_per_page'  => -1,
-                );
-                $team_query = new WP_Query( $args );
 
-                if ( $team_query->have_posts() ) { ?>
+                if ( count($block['teams']) > 0 ) { ?>
 
                   <?php if ( !empty($block['dynamic_content__title']) && empty( $title ) ) { ?>
                     <h1 class="h1"><?php echo $block['dynamic_content__title']; ?></h1>
@@ -130,14 +123,17 @@ $permalink = get_the_permalink();
                   <div class="content-block content-block--no-padding">
                   <div class="grid grid--gutterless"><?php
 
-                  $i = 0;
-                  while( $team_query->have_posts()) {
-                  $team_query->the_post();
+                  foreach( $block['teams'] as $teamId ) {
+
+                  $teamLeader = get_field( 'team_leader', $teamId );
+                  $teamLeaderId = $teamLeader[0]->ID;
+                  $teamLeaderName = get_field( 'first_name', $teamLeaderId) . ' ' . get_field( 'family_name', $teamLeaderId);
+
                   ?><div class="grid__item mobile-one-half tablet-one-third">
                     <article class="team-member">
                       <div class="team-member__photo">
                         <?php
-                        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
+                        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $teamId ), 'landscape' );
                         $thumbnailUrl = $thumbnail[0];
                         if (empty($thumbnailUrl) ) {
                           $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
@@ -146,7 +142,8 @@ $permalink = get_the_permalink();
                         <img src="<?php echo $thumbnailUrl; ?>">
                       </div>
                       <div class="team-member__details">
-                        <div class="team-member__name"><?php the_title(); ?></div>
+                        <div class="team-member__name"><?php echo get_the_title( $teamId ); ?></div>
+                        <div class="team-member__position">Team leader: <?php echo $teamLeaderName; ?></div>
                       </div>
                     </a>
                   </div><?php
@@ -362,53 +359,9 @@ $permalink = get_the_permalink();
 
 
 
-    // Sunday Teams
-    } else if ( $row['acf_fc_layout'] == 'sunday_teams' ) { ?>
-      <section class="section section--grey">
-        <div class="centering">
-          <div class="content-block content-block--grey" id="sunday-teams">
-            <h2 class="h2 content-block__title">Our Sunday Teams</h2>
-            <div class="grid grid--gutterless"><?php
-
-            $args = array (
-              'post_type'  => 'teams',
-              'meta_key'      => 'featured_team',
-              'meta_value'    => '1',
-              'meta_compare'  => '==',
-            );
-            $team_query = new WP_Query( $args );
-
-            while ( $team_query->have_posts() ) {
-              $team_query->the_post();
-
-              $teamLeader = get_field( 'team_leader' );
-              $teamLeaderId = $teamLeader[0]->ID;
-              $teamLeaderName = get_field( 'first_name', $teamLeaderId) . ' ' . get_field( 'family_name', $teamLeaderId);
-
-              ?><div class="grid__item mobile-one-half tablet-one-third">
-                <article class="team-member">
-                  <div class="team-member__photo">
-                    <?php
-                    $teamThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
-                    $teamThumbnailUrl = $teamThumbnail[0];
-                    if (empty($teamThumbnailUrl) ) {
-                      $teamThumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
-                    }
-                    ?>
-                    <img src="<?php echo $teamThumbnailUrl; ?>">
-                  </div>
-                  <div class="team-member__details">
-                    <div class="team-member__name"><?php echo get_the_title(); ?></div>
-                    <div class="team-member__position">Team leader: <?php echo $teamLeaderName; ?></div>
-                  </div>
-                </article>
-              </div><?php
-            }
-            wp_reset_postdata();
-          ?></div>
-          </div>
-        </div>
-      </section>
+    // Jumbo Link Block
+    } else if ( $row['acf_fc_layout'] == 'jumbo_link_block' ) { ?>
+      <?php include 'inc/jumbo-link-block.php'; ?>
     <?php
 
 

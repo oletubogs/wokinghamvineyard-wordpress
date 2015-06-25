@@ -33,6 +33,14 @@ the_post();
         ?>
         <img src="<?php echo $thumbnailUrl; ?>">
         <?php
+        $address = get_field('address');
+        if ( !empty($address) ) { ?>
+          <div class="connect-group__map js-connect-group-map" data-lat="<?php echo $address['lat']; ?>" data-lng="<?php echo $address['lng']; ?>"></div>
+        <?php
+        }
+        ?>
+      </div><div class="grid__item tablet-one-half desktop-three-fifths">
+        <?php
         $weekday = get_field( 'meeting_day' );
         $weekdays = array('Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays');
         ?>
@@ -82,17 +90,15 @@ the_post();
             <span><?php echo $leaders; ?></span>
           </li>
 
+          <?php
+          $description = get_field( 'description' );
+          if ( !empty( $description) ) { ?>
+          <li class="connect-group__info__item" title="Description">
+            <strong>Description</strong>
+            <?php echo $description; ?>
+          </li>
+          <?php } ?>
         </ul>
-      </div><div class="grid__item tablet-one-half desktop-three-fifths">
-        <?php
-        $description = get_field( 'description' );
-        if ( !empty( $description) ) {
-        ?>
-          <div class="connect-group__description">
-          <?php echo $description; ?>
-          </div>
-        <?php
-        } ?>
       </div></div>
     </section>
   </div>

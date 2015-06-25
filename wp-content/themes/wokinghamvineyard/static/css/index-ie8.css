@@ -639,8 +639,8 @@ td {
 }
 @font-face {
   font-family: 'wv-icons';
-  src: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/fonts/wv-icons.eot?-x95pdv");
-  src: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/fonts/wv-icons.eot?#iefix-x95pdv") format('embedded-opentype'), url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/fonts/wv-icons.woff?-x95pdv") format('woff'), url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/fonts/wv-icons.ttf?-x95pdv") format('truetype'), url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/fonts/wv-icons.svg?-x95pdv#wv-icons") format('svg');
+  src: url("/static/fonts/wv-icons.eot?-x95pdv");
+  src: url("/static/fonts/wv-icons.eot?#iefix-x95pdv") format('embedded-opentype'), url("/static/fonts/wv-icons.woff?-x95pdv") format('woff'), url("/static/fonts/wv-icons.ttf?-x95pdv") format('truetype'), url("/static/fonts/wv-icons.svg?-x95pdv#wv-icons") format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -1430,8 +1430,11 @@ button.btn::-moz-focus-inner {
 .contact-form input[type='submit']:active {
   background-color: #e0e0e0;
 }
+.btn--block {
+  width: 100%;
+}
 .btn--small {
-  font-size: 0.875em;
+  font-size: 0.8125em;
 }
 .btn--clear {
   color: #c2c2c2;
@@ -1460,6 +1463,21 @@ button.btn::-moz-focus-inner {
 .btn--primary:active,
 .contact-form input[type='submit']:active {
   background-color: #38a094;
+}
+.btn--secondary {
+  color: #fff;
+  background-color: #3fb4a6;
+}
+.btn--secondary:focus,
+.btn--secondary:hover {
+  color: #fff;
+  background-color: #318c81;
+}
+.btn--secondary:active {
+  background-color: #38a094;
+}
+.btn--letter {
+  margin: 7px 7px 0;
 }
 .animation,
 .animation--bounce,
@@ -1522,7 +1540,7 @@ button.btn::-moz-focus-inner {
   text-indent: 110%;
   white-space: nowrap;
   display: block;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/logo.png");
+  background-image: url("/static/images/content/logo.png");
   margin-bottom: 2em;
   margin: 29px 0;
   width: 240px;
@@ -1536,7 +1554,7 @@ button.btn::-moz-focus-inner {
 }
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .main-header__logo {
-    background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/logo@2x.png");
+    background-image: url("/static/images/content/logo@2x.png");
   }
 }
 .main-nav {
@@ -1767,6 +1785,9 @@ button.btn::-moz-focus-inner {
 .main-nav__items--open .main-nav__mobile-toggle__icon--open {
   display: none;
 }
+.main-content--plain {
+  margin-bottom: 75px;
+}
 .main-footer__navs {
   padding: 20px 30px 110px;
   background-color: #f5f5f0;
@@ -1853,7 +1874,7 @@ button.btn::-moz-focus-inner {
 .main-footer__logo {
   width: 250px;
   height: 25px;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/logo-inverted.png");
+  background-image: url("/static/images/content/logo-inverted.png");
   margin-bottom: 2em;
   margin-left: auto;
   margin-right: auto;
@@ -1861,7 +1882,7 @@ button.btn::-moz-focus-inner {
 }
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .main-footer__logo {
-    background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/logo-inverted@2x.png");
+    background-image: url("/static/images/content/logo-inverted@2x.png");
     -webkit-background-size: 250px;
     background-size: 250px;
     height: 25px;
@@ -1879,8 +1900,10 @@ button.btn::-moz-focus-inner {
 .section {
   padding: 50px 0;
 }
-.section:first-child {
-  padding-top: 0;
+.section:first-child .h1 {
+  margin-top: 50px;
+}
+.centering + .section:first-of-type {
   padding-top: 0;
 }
 .section--dark {
@@ -2087,7 +2110,7 @@ button.btn::-moz-focus-inner {
   margin-bottom: 50px;
   position: relative;
   padding: 190px 0 80px;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/jumbo-bg.jpg");
+  background-image: url("/static/images/content/jumbo/jumbo-bg.jpg");
   background-color: #f5f5f0;
   -webkit-background-size: cover;
   background-size: cover;
@@ -2128,48 +2151,54 @@ button.btn::-moz-focus-inner {
   font-size: 1.875em;
 }
 .jumbo--sundays {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/sundays.jpg");
+  background-image: url("/static/images/content/jumbo/sundays.jpg");
 }
 .jumbo--newcomers {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/newcomers.jpg");
+  background-image: url("/static/images/content/jumbo/newcomers.jpg");
 }
 .jumbo--vision {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/vision.jpg");
+  background-image: url("/static/images/content/jumbo/vision.jpg");
 }
 .jumbo--youth {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/youth.jpg");
+  background-image: url("/static/images/content/jumbo/youth.jpg");
 }
 .jumbo--families {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/families.jpg");
+  background-image: url("/static/images/content/jumbo/families.jpg");
 }
 .jumbo--seniors {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/seniors.jpg");
+  background-image: url("/static/images/content/jumbo/seniors.jpg");
 }
 .jumbo--students-and-20s {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/students-and-20s.jpg");
+  background-image: url("/static/images/content/jumbo/students-and-20s.jpg");
 }
 .jumbo--growbaby {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/growbaby.jpg");
+  background-image: url("/static/images/content/jumbo/growbaby.jpg");
 }
 .jumbo--our-vision {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/jumbo/our-vision.jpg");
+  background-image: url("/static/images/content/jumbo/our-vision.jpg");
 }
 .content-block {
   position: relative;
   padding: 40px 20px;
   padding: 40px;
 }
-.content-block p {
+.content-block > p {
   font-size: 1.1875em;
 }
-.section--medium .content-block p {
+.section--medium .content-block > p {
   line-height: 1.75;
 }
-.content-block > p:last-child {
+.content-block > p:only-child {
+  margin-bottom: 0;
+}
+.grid__item:last-child .content-block > p:last-child {
   margin-bottom: 0;
 }
 .content-block + .content-block {
   margin-top: 50px;
+}
+.content-block--no-padding {
+  padding: 0 !important;
 }
 .content-block--small {
   font-size: 12.8px;
@@ -2201,11 +2230,11 @@ button.btn::-moz-focus-inner {
 }
 .content-block__quotemark--open {
   margin-right: 10px;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/quotemark.png");
+  background-image: url("/static/images/content/quotemark.png");
 }
 .content-block__quotemark--close {
   margin-left: 10px;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/quotemark-close.png");
+  background-image: url("/static/images/content/quotemark-close.png");
 }
 .content-block__title {
   margin: 0 0 30px;
@@ -2398,22 +2427,22 @@ button.btn::-moz-focus-inner {
   transition: 3s all ease-in-out;
 }
 .content-grid__item--newcomer .content-grid__item__background:before {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/home-grid/newcomer.jpg");
+  background-image: url("/static/images/content/home-grid/newcomer.jpg");
 }
 .content-grid__item--our-teams .content-grid__item__background:before {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/home-grid/our-teams.jpg");
+  background-image: url("/static/images/content/home-grid/our-teams.jpg");
 }
 .content-grid__item--get-connected .content-grid__item__background:before {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/home-grid/get-connected.jpg");
+  background-image: url("/static/images/content/home-grid/get-connected.jpg");
 }
 .content-grid__item--get-in-touch .content-grid__item__background:before {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/home-grid/get-in-touch.jpg");
+  background-image: url("/static/images/content/home-grid/get-in-touch.jpg");
 }
 .content-grid__item--vision .content-grid__item__background:before {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/home-grid/vision.jpg");
+  background-image: url("/static/images/content/home-grid/vision.jpg");
 }
 .content-grid__item--our-ministries .content-grid__item__background:before {
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/home-grid/our-ministries.jpg");
+  background-image: url("/static/images/content/home-grid/our-ministries.jpg");
 }
 .content-grid__item--social {
   margin: 0 -1%;
@@ -2482,7 +2511,7 @@ button.btn::-moz-focus-inner {
 .map {
   position: relative;
   background-color: #f5f5f0;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/loading.gif");
+  background-image: url("/static/images/content/loading.gif");
   background-position: center center;
   background-repeat: no-repeat;
 }
@@ -2543,6 +2572,22 @@ button.btn::-moz-focus-inner {
 .map__directions__close i {
   margin-right: 10px;
 }
+.map .map-info-container--directions-open {
+  background-color: transparent;
+  pointer-events: none;
+}
+.map .map-info-container--directions-open .content-block__title,
+.map .map-info-container--directions-open .map__directions__button,
+.map .map-info-container--directions-open .map__directions__address,
+.map .map-info-container--directions-open p {
+  display: none;
+}
+.map .map-info-container--directions-open .map__directions__close {
+  pointer-events: all;
+  position: relative;
+  top: -100px;
+  margin-bottom: 155px;
+}
 .team {
   margin-top: 60px;
 }
@@ -2552,9 +2597,57 @@ button.btn::-moz-focus-inner {
 .h2 + .team {
   margin-top: -30px;
 }
+.team + .h2 {
+  margin-top: 30px;
+}
+.team-member {
+  display: block;
+}
+a.team-member:hover {
+  text-decoration: none;
+}
 .content-block .team-member {
   margin-top: 30px;
   margin-bottom: 0;
+}
+.team-member__photo {
+  position: relative;
+}
+a .team-member__photo:after {
+  position: absolute;
+  content: '';
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.4);
+}
+a .team-member__photo:before {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+  font-family: 'wv-icons';
+  font-size: 20px;
+  line-height: 20px;
+  padding: 13px;
+  border-radius: 50%;
+  background-color: #4dc1b3;
+  color: #fff;
+  content: "\e986";
+}
+a .team-member__photo:after,
+a .team-member__photo:before {
+  opacity: 0;
+  -ms-filter: "alpha(opacity=0)";
+}
+a:hover .team-member__photo:after,
+a:hover .team-member__photo:before {
+  opacity: 1;
+  -ms-filter: "alpha(opacity=100)";
 }
 .team-member--square .team-member__name {
   max-width: 80%;
@@ -2576,7 +2669,7 @@ button.btn::-moz-focus-inner {
   white-space: nowrap;
   height: 290px;
   width: 100%;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/team/pastors.jpg");
+  background-image: url("/static/images/content/team/pastors.jpg");
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
@@ -2598,16 +2691,16 @@ button.btn::-moz-focus-inner {
   overflow: hidden;
   text-indent: 110%;
   white-space: nowrap;
-  width: 220px;
-  height: 21px;
-  background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/team/welcome-signature.png");
-  -webkit-background-size: 220px;
-  background-size: 220px;
+  width: 221px;
+  height: 22px;
+  background-image: url("/static/images/content/team/welcome-signature.png");
+  -webkit-background-size: 221px;
+  background-size: 221px;
 }
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
   .team-welcome__signature {
-    height: 20px;
-    background-image: url("/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/wp-content/themes/wokinghamvineyard/static/images/content/team/welcome-signature@2x.png");
+    height: 22px;
+    background-image: url("/static/images/content/team/welcome-signature@2x.png");
   }
 }
 .four-oh-four {
@@ -2704,4 +2797,232 @@ button.btn::-moz-focus-inner {
 }
 .form-error h3 {
   font-weight: 600;
+}
+.connect-group__info {
+  background-color: #f5f5f0;
+  margin: 0;
+  padding: 10px 0;
+}
+.connect-group__info__item {
+  padding: 10px 20px;
+  background-color: #f5f5f0;
+  margin: 0;
+  list-style: none;
+  font-size: 1.125em;
+}
+.connect-group__info__item i {
+  margin-right: 10px;
+}
+.connect-group__description {
+  font-size: 1.125em;
+}
+.connect-group__map {
+  height: 300px;
+}
+.gallery {
+  margin-top: 2em;
+}
+.gallery__image {
+  display: block;
+  position: relative;
+}
+.gallery__image:after {
+  position: absolute;
+  content: '';
+  z-index: 1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.4);
+}
+.gallery__image:before {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+  font-family: 'wv-icons';
+  font-size: 20px;
+  line-height: 20px;
+  padding: 13px;
+  border-radius: 50%;
+  background-color: #4dc1b3;
+  color: #fff;
+  content: "\e986";
+}
+.gallery__image:after,
+.gallery__image:before {
+  opacity: 0;
+  -ms-filter: "alpha(opacity=0)";
+}
+.gallery__image:hover:after,
+.gallery__image:hover:before {
+  opacity: 1;
+  -ms-filter: "alpha(opacity=100)";
+}
+.gallery__image--not-row-one {
+  margin-top: 5px;
+}
+.lightboxOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: rgba(255,255,255,0.7);
+  display: none;
+}
+.lightbox {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  text-align: center;
+  line-height: 0;
+  font-weight: normal;
+}
+.lightbox .lb-image {
+  display: block;
+  height: auto;
+  max-width: inherit;
+  border-radius: 3px;
+}
+.lightbox a img {
+  border: none;
+}
+.lb-outerContainer {
+  position: relative;
+  background-color: #fff;
+  *zoom: 1;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+.lb-outerContainer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.lb-container {
+  padding: 4px;
+}
+.lb-loader {
+  position: absolute;
+  top: 43%;
+  left: 0;
+  height: 25%;
+  width: 100%;
+  text-align: center;
+  line-height: 0;
+}
+.lb-cancel {
+  display: block;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  background: url("/static/images/content/lightbox/loading.gif") no-repeat;
+}
+.lb-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
+.lb-container > .nav {
+  left: 0;
+}
+.lb-nav a {
+  outline: none;
+  background-image: url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
+}
+.lb-prev,
+.lb-next {
+  height: 100%;
+  cursor: pointer;
+  display: block;
+}
+.lb-nav a.lb-prev {
+  width: 34%;
+  left: 0;
+  float: left;
+  background: url("/static/images/content/lightbox/prev.png") left 48% no-repeat;
+  opacity: 0;
+  -ms-filter: "alpha(opacity=0)";
+  -webkit-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+}
+.lb-nav a.lb-prev:hover {
+  opacity: 1;
+  -ms-filter: "alpha(opacity=100)";
+}
+.lb-nav a.lb-next {
+  width: 64%;
+  right: 0;
+  float: right;
+  background: url("/static/images/content/lightbox/next.png") right 48% no-repeat;
+  opacity: 0;
+  -ms-filter: "alpha(opacity=0)";
+  -webkit-transition: opacity 0.6s;
+  transition: opacity 0.6s;
+}
+.lb-nav a.lb-next:hover {
+  opacity: 1;
+  -ms-filter: "alpha(opacity=100)";
+}
+.lb-dataContainer {
+  margin: 0 auto;
+  padding-top: 5px;
+  *zoom: 1;
+  width: 100%;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.lb-dataContainer:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.lb-data {
+  padding: 0 4px;
+  color: #4d4d4d;
+}
+.lb-data .lb-details {
+  width: 85%;
+  float: left;
+  text-align: left;
+  line-height: 1.1em;
+}
+.lb-data .lb-caption {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1em;
+}
+.lb-data .lb-number {
+  display: block;
+  clear: left;
+  padding-bottom: 1em;
+  font-size: 12px;
+  color: #4d4d4d;
+}
+.lb-data .lb-close {
+  display: block;
+  float: right;
+  width: 30px;
+  height: 30px;
+  background: url("/static/images/content/lightbox/close.png") top right no-repeat;
+  text-align: right;
+  outline: none;
+  opacity: 0.7;
+  -ms-filter: "alpha(opacity=70)";
+  -webkit-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+.lb-data .lb-close:hover {
+  cursor: pointer;
+  opacity: 1;
+  -ms-filter: "alpha(opacity=100)";
 }
