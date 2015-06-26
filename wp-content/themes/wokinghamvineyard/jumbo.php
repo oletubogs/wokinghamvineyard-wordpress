@@ -67,268 +67,283 @@ $permalink = get_the_permalink();
 
             <?php if ( !empty($block['image']) ) { ?><img src="<?php echo $block['image']; ?>" class="hidden--mobile"><?php } ?>
 
-            <div <?php echo ( !empty($block['block_anchor']) ) ? 'id="' . $block['block_anchor'] . '"' : null; ?> class="content-block content-block--<?php echo $block['background_colour']; ?> <?php echo ( !empty($block['center_text']) ) ? 'content-block--centered' : null; ?> <?php echo ( !empty($row['font_size']) ) ? 'content-block--'.$row['font_size'] : null; ?>">
-
-              <?php // Title
-              if ( !empty($block['content_block__title']) ) { ?>
-                <h2 class="h2 content-block__title"><?php echo $block['content_block__title']; ?></h2>
-              <?php }
-
-
-              // Textarea
-              if ( !empty($block['content_block__text']) ) { ?>
-                <p>
-                  <?php
-                  // Opening Quote
-                  if ( !empty($block['is_quote']) ) { ?>
-                    <span class="content-block__quotemark content-block__quotemark--open"></span>
-                  <?php }
-
-                  // Text
-                  echo $block['content_block__text'];
-
-                  // Closing Quote
-                  if ( !empty($block['is_quote']) ) { ?>
-                    <span class="content-block__quotemark content-block__quotemark--close"></span>
-                  <?php } ?>
-                </p>
-              <?php }
 
 
 
+            <?php
+            // CONTENT BLOCK MAIN
+            if (
+               !empty($block['content_block__title'])
+            || !empty($block['content_block__text'])
+            || !empty($block['show_button'])
+            || $block['dynamic_content'] !== 'none'
+            ) { ?>
 
-              // Button
-              if (!empty( $block['show_button'] ) && !empty( $block['button_link'] ) && !empty( $block['button_text'] ) ) {
-                $btnColourClass = ( in_array( $block['background_colour'], array('dark', 'grey', 'light') ) ) ? 'btn--primary' : 'btn--secondary';
-                $btnSizeClass = ( $block['button_size'] == 'small' ) ? 'btn--small' : null;
-              ?>
-                <p><a class="btn <?php echo $btnColourClass . ' ' . $btnSizeClass; ?>" href="<?php echo $block['button_link']; ?>"><?php echo $block['button_text']; ?></a></p>
-              <?php }
+              <div <?php echo ( !empty($block['block_anchor']) ) ? 'id="' . $block['block_anchor'] . '"' : null; ?> class="content-block content-block--<?php echo $block['background_colour']; ?> <?php echo ( !empty($block['center_text']) ) ? 'content-block--centered' : null; ?> <?php echo ( !empty($row['font_size']) ) ? 'content-block--'.$row['font_size'] : null; ?>">
+
+                <?php // Title
+                if ( !empty($block['content_block__title']) ) { ?>
+                  <h2 class="h2 content-block__title"><?php echo $block['content_block__title']; ?></h2>
+                <?php }
+
+
+                // Textarea
+                if ( !empty($block['content_block__text']) ) { ?>
+                  <p>
+                    <?php
+                    // Opening Quote
+                    if ( !empty($block['is_quote']) ) { ?>
+                      <span class="content-block__quotemark content-block__quotemark--open"></span>
+                    <?php }
+
+                    // Text
+                    echo $block['content_block__text'];
+
+                    // Closing Quote
+                    if ( !empty($block['is_quote']) ) { ?>
+                      <span class="content-block__quotemark content-block__quotemark--close"></span>
+                    <?php } ?>
+                  </p>
+                <?php }
 
 
 
 
-
-              // Teams
-              if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'teams' && $block['dynamic_content'] !== 'none' ) {
-
-                if ( count($block['teams']) > 0 ) { ?>
-
-                  <?php if ( !empty($block['dynamic_content__title']) && empty( $title ) ) { ?>
-                    <h1 class="h1"><?php echo $block['dynamic_content__title']; ?></h1>
-                  <?php } else if ( !empty($block['dynamic_content__title']) ) { ?>
-                    <h2 class="h2"><?php echo $block['dynamic_content__title'];?></h2>
-                  <?php } ?>
-
-                  <div class="content-block content-block--no-padding">
-                  <div class="grid grid--gutterless"><?php
-
-                  foreach( $block['teams'] as $teamId ) {
-
-                  $teamLeader = get_field( 'team_leader', $teamId );
-                  $teamLeaderId = $teamLeader[0]->ID;
-                  $teamLeaderName = get_field( 'first_name', $teamLeaderId) . ' ' . get_field( 'family_name', $teamLeaderId);
-
-                  ?><div class="grid__item mobile-one-half tablet-one-third">
-                    <article class="team-member">
-                      <div class="team-member__photo">
-                        <?php
-                        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $teamId ), 'landscape' );
-                        $thumbnailUrl = $thumbnail[0];
-                        if (empty($thumbnailUrl) ) {
-                          $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
-                        }
-                        ?>
-                        <img src="<?php echo $thumbnailUrl; ?>">
-                      </div>
-                      <div class="team-member__details">
-                        <div class="team-member__name"><?php echo get_the_title( $teamId ); ?></div>
-                        <div class="team-member__position">Team leader: <?php echo $teamLeaderName; ?></div>
-                      </div>
-                    </a>
-                  </div><?php
-                  }
-
-                  ?></div></div><?php
-                }
-              }
+                // Button
+                if (!empty( $block['show_button'] ) && !empty( $block['button_link'] ) && !empty( $block['button_text'] ) ) {
+                  $btnColourClass = ( in_array( $block['background_colour'], array('dark', 'grey', 'light') ) ) ? 'btn--primary' : 'btn--secondary';
+                  $btnSizeClass = ( $block['button_size'] == 'small' ) ? 'btn--small' : null;
+                ?>
+                  <p><a class="btn <?php echo $btnColourClass . ' ' . $btnSizeClass; ?>" href="<?php echo $block['button_link']; ?>"><?php echo $block['button_text']; ?></a></p>
+                <?php }
 
 
 
 
 
-              // Connect Groups
-              else if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'connect-groups' && $block['dynamic_content'] !== 'none' ) {
-                $args = array (
-                  'post_type'       => 'connect-group',
-                  'orderby'         => 'title',
-                  'order'           => 'ASC',
-                  'posts_per_page'  => -1,
-                );
-                if ( !empty ( $_GET['title_starting_letter'] ) ) {
-                  $args['title_starting_letter'] = sanitize_text_field($_GET['title_starting_letter']);
-                }
-                $connect_query = new WP_Query( $args );
+                // Teams
+                if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'teams' && $block['dynamic_content'] !== 'none' ) {
 
-                if ( $connect_query->have_posts() ) { ?>
+                  if ( count($block['teams']) > 0 ) { ?>
 
-                  <?php if ( !empty($block['dynamic_content__title']) && empty( $title ) ) { ?>
-                    <h1 class="h1"><?php echo $block['dynamic_content__title']; echo ( !empty ( $args['title_starting_letter'] ) ) ? ': ' . $args['title_starting_letter'] : null; ?></h1>
-                  <?php } else if ( !empty($block['dynamic_content__title']) ) { ?>
-                    <h2 class="h2"><?php echo $block['dynamic_content__title']; echo ( !empty ( $args['title_starting_letter'] ) ) ? ': ' . $args['title_starting_letter'] : null;?></h2>
-                  <?php } ?>
+                    <?php if ( !empty($block['dynamic_content__title']) && empty( $title ) ) { ?>
+                      <h1 class="h1"><?php echo $block['dynamic_content__title']; ?></h1>
+                    <?php } else if ( !empty($block['dynamic_content__title']) ) { ?>
+                      <h2 class="h2"><?php echo $block['dynamic_content__title'];?></h2>
+                    <?php } ?>
 
-                  <div class="content-block content-block--no-padding">
-                  <div class="grid grid--gutterless"><?php
-
-                  $i = 0;
-                  while( $connect_query->have_posts()) {
-                  $connect_query->the_post();
-                  $post_terms = wp_get_post_terms($post->ID, 'connect-group-type');
-                  $connect_group_type = $post_terms[0]->name;
-                  ?><div class="grid__item mobile-one-half tablet-one-third">
-                    <a href="<?php the_permalink(); ?>" class="team-member">
-                      <div class="team-member__photo">
-                        <?php
-                        $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
-                        $thumbnailUrl = $thumbnail[0];
-                        if (empty($thumbnailUrl) ) {
-                          $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
-                        }
-                        ?>
-                        <img src="<?php echo $thumbnailUrl; ?>">
-                      </div>
-                      <div class="team-member__details">
-                        <div class="team-member__name"><?php the_title(); ?></div>
-                        <?php
-
-                        $weekday = get_field( 'meeting_day' );
-                        $weekdays = array('Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays');
-
-                        $when = $connect_group_type;
-                        $when .= ' / ';
-                        $when .= get_field( 'occurence' );
-                        $when .= ' / ';
-                        $when .= $weekdays[$weekday - 1] . ' @ ' . get_field( 'meeting_time' );
-
-                        ?>
-                        <div class="team-member__position"><?php echo $when; ?></div>
-                      </div>
-                    </a>
-                  </div><?php
-                  }
-
-                  ?></div></div><?php
-                }
-              }
-
-
-
-
-
-              // Photos
-              else if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'photos' && $block['dynamic_content'] !== 'none' ) {
-
-                if (!empty( $block['photos'] )) {
-
-                  $i = 1;
-
-                  ?><div class="gallery"><div class="grid grid--gutterless"><?php
-                    foreach ($block['photos'] as $photo) {
-                      $photoUrl = $photo['sizes']['landscape'];
-                      $photoUrlFull = $photo['sizes']['large'];
-                      ?><div class="grid__item tablet-one-third"><a class="gallery__image" href="<?php echo $photoUrlFull; ?>" data-lightbox="gallery"><img src="<?php echo $photoUrl; ?>"></a></div><?php
-                      $i++;
-                     }
-                   ?></div></div><?php
-                 }
-
-              }
-
-
-
-
-              // Team Headshots
-              else if ( !empty($block['dynamic_content']) && !empty($block['team_headshots']) && $block['dynamic_content'] !== 'none' ) {
-
-                foreach ($block['team_headshots'] as $team) {
-
-                  $teamMembers = get_field( 'team_members', $team['team_id'] );
-                  $mergeTeamsByPhoto = false;
-
-                  if ( strtolower( get_the_title( $team['team_id'] ) ) == 'pastoral' ) {
-                    $mergeTeamsByPhoto = true;
-                    $teamMembers = mergeTeamMembersByPhoto( $teamMembers );
-                  }
-
-                  if ( !empty($team['team_title']) ) { ?>
-                    <h2 class="h2"><?php echo $team['team_title']; ?></h2>
-                  <?php } ?>
-
-                  <div class="team">
-
+                    <div class="content-block content-block--no-padding">
                     <div class="grid grid--gutterless"><?php
 
-                      foreach ( $teamMembers as $member ) {
-                        $post = $member['person'];
+                    foreach( $block['teams'] as $teamId ) {
 
-                        $headshotSize = $team['team_headshot_size'];
-                        $teamMemberSmallClass = ($headshotSize == 'square' ) ? 'team-member--square' : null;
+                    $teamLeader = get_field( 'team_leader', $teamId );
+                    $teamLeaderId = $teamLeader[0]->ID;
+                    $teamLeaderName = get_field( 'first_name', $teamLeaderId) . ' ' . get_field( 'family_name', $teamLeaderId);
 
-                        $teamMemberGridWidths = array('one-half' );
+                    ?><div class="grid__item mobile-one-half tablet-one-third">
+                      <article class="team-member">
+                        <div class="team-member__photo">
+                          <?php
+                          $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $teamId ), 'landscape' );
+                          $thumbnailUrl = $thumbnail[0];
+                          if (empty($thumbnailUrl) ) {
+                            $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                          }
+                          ?>
+                          <img src="<?php echo $thumbnailUrl; ?>">
+                        </div>
+                        <div class="team-member__details">
+                          <div class="team-member__name"><?php echo get_the_title( $teamId ); ?></div>
+                          <div class="team-member__position">Team leader: <?php echo $teamLeaderName; ?></div>
+                        </div>
+                      </a>
+                    </div><?php
+                    }
 
-                        if ( $headshotSize == 'square' ) {
-                          $teamMemberGridWidths[] = 'mobile-one-third';
-                        }
-
-                        if ( $block['tablet-width'] == 'one-whole' ) {
-                          $teamMemberGridWidths[] = 'tablet-one-quarter';
-                        }
-
-                        if ( $block['desktop-width'] == 'auto' ) {
-                          $teamMemberGridWidths[] = 'desktop-auto';
-                        }
-                        else if ( $block['desktop-width'] == 'one-whole' && $headshotSize == 'square' ) {
-                          $teamMemberGridWidths[] = 'desktop-one-fifth';
-                        }
-                        else {
-                          $teamMemberGridWidths[] = 'tablet-one-half';
-                        }
-
-                        ?><div class="grid__item <?php echo implode(' ', $teamMemberGridWidths); ?>">
-                          <article class="team-member <?php echo $teamMemberSmallClass; ?>">
-                            <div class="team-member__photo">
-                              <?php
-
-                              $thumbnailSize = ($headshotSize == 'square' ) ? array(400, 400) : 'landscape';
-
-                              if (!empty( $member['person']->merged_photo )) {
-                                $teamThumbnailUrl = $member['person']->merged_photo;
-                              } else {
-                                $teamThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), $thumbnailSize );
-                                $teamThumbnailUrl = $teamThumbnail[0];
-                              }
-                              if (empty($teamThumbnailUrl) ) {
-                                $teamThumbnailUrl = ($headshotSize == 'square' ) ? '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg' : '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
-                              }
-                              ?>
-                              <img src="<?php echo $teamThumbnailUrl; ?>">
-                            </div>
-                            <div class="team-member__details">
-                              <div class="team-member__name"><?php
-                                echo (!empty( $member['person']->merged_name )) ? $member['person']->merged_name : get_field( 'first_name' ).' '.get_field( 'family_name' ); ?></div>
-                              <div class="team-member__position"><?php echo (!empty( $member['person']->role )) ? $member['person']->role : $member['role']; ?></div>
-                            </div>
-                          </article>
-                        </div><?php }
                     ?></div></div><?php
-
-                  wp_reset_postdata();
+                  }
                 }
-              } ?>
 
 
-            </div>
+
+
+
+                // Connect Groups
+                else if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'connect-groups' && $block['dynamic_content'] !== 'none' ) {
+                  $args = array (
+                    'post_type'       => 'connect-group',
+                    'orderby'         => 'title',
+                    'order'           => 'ASC',
+                    'posts_per_page'  => -1,
+                  );
+                  if ( !empty ( $_GET['title_starting_letter'] ) ) {
+                    $args['title_starting_letter'] = sanitize_text_field($_GET['title_starting_letter']);
+                  }
+                  $connect_query = new WP_Query( $args );
+
+                  if ( $connect_query->have_posts() ) { ?>
+
+                    <?php if ( !empty($block['dynamic_content__title']) && empty( $title ) ) { ?>
+                      <h1 class="h1"><?php echo $block['dynamic_content__title']; echo ( !empty ( $args['title_starting_letter'] ) ) ? ': ' . $args['title_starting_letter'] : null; ?></h1>
+                    <?php } else if ( !empty($block['dynamic_content__title']) ) { ?>
+                      <h2 class="h2"><?php echo $block['dynamic_content__title']; echo ( !empty ( $args['title_starting_letter'] ) ) ? ': ' . $args['title_starting_letter'] : null;?></h2>
+                    <?php } ?>
+
+                    <div class="content-block content-block--no-padding">
+                    <div class="grid grid--gutterless"><?php
+
+                    $i = 0;
+                    while( $connect_query->have_posts()) {
+                    $connect_query->the_post();
+                    $post_terms = wp_get_post_terms($post->ID, 'connect-group-type');
+                    $connect_group_type = $post_terms[0]->name;
+                    ?><div class="grid__item mobile-one-half tablet-one-third">
+                      <a href="<?php the_permalink(); ?>" class="team-member">
+                        <div class="team-member__photo">
+                          <?php
+                          $thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'landscape' );
+                          $thumbnailUrl = $thumbnail[0];
+                          if (empty($thumbnailUrl) ) {
+                            $thumbnailUrl = '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                          }
+                          ?>
+                          <img src="<?php echo $thumbnailUrl; ?>">
+                        </div>
+                        <div class="team-member__details">
+                          <div class="team-member__name"><?php the_title(); ?></div>
+                          <?php
+
+                          $weekday = get_field( 'meeting_day' );
+                          $weekdays = array('Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays', 'Sundays');
+
+                          $when = $connect_group_type;
+                          $when .= ' / ';
+                          $when .= get_field( 'occurence' );
+                          $when .= ' / ';
+                          $when .= $weekdays[$weekday - 1] . ' @ ' . get_field( 'meeting_time' );
+
+                          ?>
+                          <div class="team-member__position"><?php echo $when; ?></div>
+                        </div>
+                      </a>
+                    </div><?php
+                    }
+
+                    ?></div></div><?php
+                  }
+                }
+
+
+
+
+
+                // Photos
+                else if ( !empty($block['dynamic_content']) && $block['dynamic_content'] == 'photos' && $block['dynamic_content'] !== 'none' ) {
+
+                  if (!empty( $block['photos'] )) {
+
+                    $i = 1;
+
+                    ?><div class="gallery"><div class="grid grid--gutterless"><?php
+                      foreach ($block['photos'] as $photo) {
+                        $photoUrl = $photo['sizes']['landscape'];
+                        $photoUrlFull = $photo['sizes']['large'];
+                        ?><div class="grid__item tablet-one-third"><a class="gallery__image" href="<?php echo $photoUrlFull; ?>" data-lightbox="gallery"><img src="<?php echo $photoUrl; ?>"></a></div><?php
+                        $i++;
+                       }
+                     ?></div></div><?php
+                   }
+
+                }
+
+
+
+
+                // Team Headshots
+                else if ( !empty($block['dynamic_content']) && !empty($block['team_headshots']) && $block['dynamic_content'] !== 'none' ) {
+
+                  foreach ($block['team_headshots'] as $team) {
+
+                    $teamMembers = get_field( 'team_members', $team['team_id'] );
+                    $mergeTeamsByPhoto = false;
+
+                    if ( strtolower( get_the_title( $team['team_id'] ) ) == 'pastoral' ) {
+                      $mergeTeamsByPhoto = true;
+                      $teamMembers = mergeTeamMembersByPhoto( $teamMembers );
+                    }
+
+                    if ( !empty($team['team_title']) ) { ?>
+                      <h2 class="h2"><?php echo $team['team_title']; ?></h2>
+                    <?php } ?>
+
+                    <div class="team">
+
+                      <div class="grid grid--gutterless"><?php
+
+                        foreach ( $teamMembers as $member ) {
+                          $post = $member['person'];
+
+                          $headshotSize = $team['team_headshot_size'];
+                          $teamMemberSmallClass = ($headshotSize == 'square' ) ? 'team-member--square' : null;
+
+                          $teamMemberGridWidths = array('one-half' );
+
+                          if ( $headshotSize == 'square' ) {
+                            $teamMemberGridWidths[] = 'mobile-one-third';
+                          }
+
+                          if ( $block['tablet-width'] == 'one-whole' ) {
+                            $teamMemberGridWidths[] = 'tablet-one-quarter';
+                          }
+
+                          if ( $block['desktop-width'] == 'auto' ) {
+                            $teamMemberGridWidths[] = 'desktop-auto';
+                          }
+                          else if ( $block['desktop-width'] == 'one-whole' && $headshotSize == 'square' ) {
+                            $teamMemberGridWidths[] = 'desktop-one-fifth';
+                          }
+                          else {
+                            $teamMemberGridWidths[] = 'tablet-one-half';
+                          }
+
+                          ?><div class="grid__item <?php echo implode(' ', $teamMemberGridWidths); ?>">
+                            <article class="team-member <?php echo $teamMemberSmallClass; ?>">
+                              <div class="team-member__photo">
+                                <?php
+
+                                $thumbnailSize = ($headshotSize == 'square' ) ? array(400, 400) : 'landscape';
+
+                                if (!empty( $member['person']->merged_photo )) {
+                                  $teamThumbnailUrl = $member['person']->merged_photo;
+                                } else {
+                                  $teamThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), $thumbnailSize );
+                                  $teamThumbnailUrl = $teamThumbnail[0];
+                                }
+                                if (empty($teamThumbnailUrl) ) {
+                                  $teamThumbnailUrl = ($headshotSize == 'square' ) ? '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder-square.jpg' : '/wp-content/themes/wokinghamvineyard/static/images/content/team/team-member-placeholder.jpg';
+                                }
+                                ?>
+                                <img src="<?php echo $teamThumbnailUrl; ?>">
+                              </div>
+                              <div class="team-member__details">
+                                <div class="team-member__name"><?php
+                                  echo (!empty( $member['person']->merged_name )) ? $member['person']->merged_name : get_field( 'first_name' ).' '.get_field( 'family_name' ); ?></div>
+                                <div class="team-member__position"><?php echo (!empty( $member['person']->role )) ? $member['person']->role : $member['role']; ?></div>
+                              </div>
+                            </article>
+                          </div><?php }
+                      ?></div></div><?php
+
+                    wp_reset_postdata();
+                  }
+                } ?>
+
+
+              </div>
+            <?php }
+
+            // END CONTENT BLOCK MAIN ?>
 
             <?php if ( $contentBlockCount > 1) {
               ?></div><?php
@@ -370,7 +385,19 @@ $permalink = get_the_permalink();
     } else if ( $row['acf_fc_layout'] == 'pastoral_welcome' ) { ?>
       <section class="section--light section--welcome">
         <div class="centering">
-          <div class="team-welcome"><div class="grid grid--gutterless"><div class="grid__item tablet-one-half"><div class="team-welcome__photo">Photo of Nino and Debbie Moscardini</div></div><div class="grid__item tablet-one-half"><div class="team-welcome__message"><p>Welcome to Wokingham Vineyard!</p><p>We are people who are getting to know Jesus better and aim to bring love, compassion, forgiveness and acceptance to our church and community.</p><div class="team-welcome__signature">Nino &amp; Debbie Moscardini</div><div class="team-member__position">Senior Pastors</div></div></div></div></div>
+          <div class="team-welcome">
+            <div class="grid grid--gutterless"><div class="grid__item tablet-one-half"><div class="team-welcome__photo" <?php
+
+            if ( !empty ($row['welcome_photo']) ) {
+              echo 'style="background-image:url(' . $row['welcome_photo']['sizes']['large'] . ');"';
+            }
+
+            ?>></div></div><div class="grid__item tablet-one-half"><div class="team-welcome__message">
+              <?php echo $row['welcome_text']; ?>
+              <div class="team-welcome__signature">Nino &amp; Debbie Moscardini</div>
+              <div class="team-member__position">Senior Pastors</div>
+            </div></div></div>
+          </div>
         </div>
       </section>
 
